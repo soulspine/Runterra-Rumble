@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Runterra_Rumble"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        ResizeMode="CanResize"
+        MinHeight="720" MinWidth="1280"
+        Title="Runterra Rumble"
+        RenderOptions.BitmapScalingMode="Fant">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="NavigationBar" Background="White">
+            <StackPanel Orientation="Horizontal" Margin="10" MaxHeight="70" CanHorizontallyScroll="False" CanVerticallyScroll="False" HorizontalAlignment="Center">
+                <WrapPanel Name ="IconContainer">
+                    <Image x:Name="UserIcon" Source="img\profileicon\29.png" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill"/>
+                    <WrapPanel.OpacityMask>
+                        <VisualBrush>
+                            <VisualBrush.Visual>
+                                <Border Height="{Binding ElementName=IconContainer, Path=ActualHeight}" 
+                            Width="{Binding ElementName=IconContainer, Path=ActualWidth}"
+                            Background="{Binding ElementName=NavigationBar, Path=Background}" CornerRadius="15 5 15 5" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </WrapPanel.OpacityMask>
+                </WrapPanel>
+                <TextBlock Margin="10 0 0 0" TextWrapping="WrapWithOverflow" x:Name="UserName" FontSize="25" FontFamily="{StaticResource BeaufortforLOL}" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center" Text="Not connected" ></TextBlock>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
