@@ -7,5 +7,30 @@
     <Application.Resources>
         <FontFamily x:Key="BeaufortforLOL">pack://application:,,,/Fonts/#Beaufort for LOL</FontFamily>
         <FontFamily x:Key="Spiegel">pack://application:,,,/Fonts/#Spiegel</FontFamily>
+
+        <!--https://brand.riotgames.com/en-us/league-of-legends/color-->
+        <Brush x:Key="Blue1">#CDFAFA</Brush>
+        <Brush x:Key="Blue2">#0AC8B9</Brush>
+        <Brush x:Key="Blue3">#0397AB</Brush>
+        <Brush x:Key="Blue4">#005A82</Brush>
+        <Brush x:Key="Blue5">#0A323C</Brush>
+        <Brush x:Key="Blue6">#091428</Brush>
+        <Brush x:Key="Blue7">#0A1428</Brush>
+
+        <Brush x:Key="Gold1">#F0E6D2</Brush>
+        <Brush x:Key="Gold2">#C8AA6E</Brush>
+        <Brush x:Key="Gold3">#C8AA6E</Brush>
+        <Brush x:Key="Gold4">#C89B3C</Brush>
+        <Brush x:Key="Gold5">#785A28</Brush>
+        <Brush x:Key="Gold6">#463714</Brush>
+        <Brush x:Key="Gold7">#32281E</Brush>
+
+        <Brush x:Key="Grey1">#A09B8C</Brush>
+        <Brush x:Key="Grey2">#5B5A56</Brush>
+        <Brush x:Key="Grey3">#3C3C41</Brush>
+        <Brush x:Key="Grey4">#1E2328</Brush>
+        <Brush x:Key="Grey5">#1E282D</Brush>
+        <Brush x:Key="Grey6">#010A13</Brush>
+        
     </Application.Resources>
 </Application>
