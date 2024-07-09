@@ -1,0 +1,24 @@
+﻿<Page x:Class="Runterra_Rumble.pages.NoLCU"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Runterra_Rumble.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="NoLCU">
+
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource Spiegel}"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+        </StackPanel.Resources>
+        <TextBlock TextAlignment="Center" x:Name="LcuNotRunningBigText" Text="League of Legends is not running" Foreground="{StaticResource Gold3}" FontSize="50"/>
+        <TextBlock TextAlignment="Center" Width="{Binding ElementName=LcuNotRunningBigText, Path=ActualWidth}" TextWrapping="Wrap" Text="In order to use this app, please launch LOL and have it open." Foreground="{StaticResource Gold1}" FontSize="25"/>
+    </StackPanel>
+</Page>

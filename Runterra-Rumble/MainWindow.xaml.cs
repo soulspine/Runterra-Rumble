@@ -114,7 +114,8 @@ namespace Runterra_Rumble
 
         private void OnLocalSummonerInfoChanged(OnWebsocketEventArgs e)
         {
-            UserUpdate(lcu.localSummoner.profileIconId, $"{lcu.localSummoner.gameName}");
+            if (lcu.localSummoner == null) return; // this is here to prevent crashing when logging out of league, because websocket sends an empty summoner event before disconnect
+            UserUpdate(lcu.localSummoner.profileIconId, null);
         }
 
         private void OnLcuConnected()
@@ -235,7 +236,6 @@ namespace Runterra_Rumble
             button.IsEnabled = true;
         }
 
-
         private void ModeButton_Disable()
         {
             if (!ModeButton_IsEnabled) return;
@@ -288,6 +288,11 @@ namespace Runterra_Rumble
             });
         }
 
+        private void JoinCreateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private StringAnimationUsingKeyFrames DeleteAndTypingAnimation(string from, string to, double duration)
         {
             var keyFrames = new StringKeyFrameCollection();
@@ -313,9 +318,10 @@ namespace Runterra_Rumble
             };
         }
 
-        private void JoinCreateButton_Click(object sender, RoutedEventArgs e)
+        private void ChangeMainFrameSource(string uri)
         {
-
+            if (!uri.EndsWith(".xaml")) uri += ".xaml";
+            Dispatcher.Invoke(() => MainFrame.Source = new Uri(uri, UriKind.Relative));
         }
     }
 }

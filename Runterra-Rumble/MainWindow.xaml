@@ -9,70 +9,73 @@
         MinHeight="720" MinWidth="1280"
         Title="Runterra Rumble"
         RenderOptions.BitmapScalingMode="Fant">
-    <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="TitleBarRowDefinition" Height="90"/>
-            <RowDefinition Height="9*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" x:Name="TitleBar" Background="{StaticResource Blue7}">
-            <Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="{StaticResource Blue1}"/>
-                    <Setter Property="FontFamily" Value="{StaticResource BeaufortforLOL}"/>
-                    <Setter Property="FontSize" Value="2"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="Margin" Value="20"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button" >
-                                <Border BorderThickness="3" BorderBrush="{StaticResource Gold4}" Background="Transparent" CornerRadius="25">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Grid.Resources>
-            <Button Opacity="1" x:Name="ModeButton" Width="250" HorizontalAlignment="Left"  Click="ModeButton_Click">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="ModeButtonPlayerText" VerticalAlignment="Center" FontSize="25" Margin="10 0 10 0" TextAlignment="Center">Player</TextBlock>
-                        <Polygon Height="20" Width="20" Points="1,10 19,1 16,10 19,19" Stroke="{StaticResource Blue1}" StrokeThickness="2" x:Name="ModeButtonIcon" RenderTransformOrigin="0.5, 0.5" Margin="0 10 0 10">
-                            <Polygon.RenderTransform>
-                                <RotateTransform x:Name="ModeButtonIconRotateTransform" Angle="0"/>
-                            </Polygon.RenderTransform>
-                        </Polygon>
-                        <TextBlock x:Name="ModeButtonOrganizerText" Opacity="0.5" VerticalAlignment="Center" FontSize="15" Margin="10 0 10 0" TextAlignment="Center">Organizer</TextBlock>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <StackPanel Orientation="Horizontal" Margin="10" MaxHeight="{Binding ElementName=TitleBarRowDefinition, Path=Height}" CanHorizontallyScroll="False" CanVerticallyScroll="False" HorizontalAlignment="Center">
-                <WrapPanel Name ="IconContainer">
-                    <Image x:Name="UserIcon" Source="img\profileicon\29.png" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill"/>
+    <Canvas x:Name="GodCanvas">
+        <Grid Height="{Binding ElementName=GodCanvas, Path=ActualHeight}" Width="{Binding ElementName=GodCanvas, Path=ActualWidth}" x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" x:Name="TitleBar" Background="{StaticResource Blue7}">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Foreground" Value="{StaticResource Blue1}"/>
+                        <Setter Property="FontFamily" Value="{StaticResource BeaufortforLOL}"/>
+                        <Setter Property="FontSize" Value="2"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Margin" Value="20"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button" >
+                                    <Border BorderThickness="3" BorderBrush="{StaticResource Gold4}" Background="Transparent" CornerRadius="30">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+                <Button Opacity="1" x:Name="ModeButton" Width="250" HorizontalAlignment="Left"  Click="ModeButton_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="ModeButtonPlayerText" VerticalAlignment="Center" FontSize="25" Margin="10 0 10 0" TextAlignment="Center">Player</TextBlock>
+                            <Polygon Height="20" Width="20" Points="1,10 19,1 16,10 19,19" Stroke="{StaticResource Blue1}" StrokeThickness="2" x:Name="ModeButtonIcon" RenderTransformOrigin="0.5, 0.5" Margin="0 10 0 10">
+                                <Polygon.RenderTransform>
+                                    <RotateTransform x:Name="ModeButtonIconRotateTransform" Angle="0"/>
+                                </Polygon.RenderTransform>
+                            </Polygon>
+                            <TextBlock x:Name="ModeButtonOrganizerText" Opacity="0.5" VerticalAlignment="Center" FontSize="15" Margin="10 0 10 0" TextAlignment="Center">Organizer</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <WrapPanel Margin="10 10 10 35" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name ="IconContainer">
+                    <Image x:Name="UserIcon" Source="img\profileicon\29.png"/>
                     <WrapPanel.OpacityMask>
                         <VisualBrush>
                             <VisualBrush.Visual>
-                                <Border Height="{Binding ElementName=IconContainer, Path=ActualHeight}" Width="{Binding ElementName=IconContainer, Path=ActualWidth}" Background="{StaticResource Gold4}" BorderThickness="2" BorderBrush="{StaticResource Gold4}" CornerRadius="50"/>
+                                <Border Height="{Binding ElementName=IconContainer, Path=ActualHeight}" Width="{Binding ElementName=IconContainer, Path=ActualHeight}" Background="Black" BorderThickness="2" CornerRadius="50"/>
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </WrapPanel.OpacityMask>
                 </WrapPanel>
-                <TextBlock Margin="10 0 0 0" TextWrapping="WrapWithOverflow" x:Name="UserName" FontSize="25" FontFamily="{StaticResource BeaufortforLOL}" FontWeight="Bold" Foreground="{StaticResource Gold4}" TextAlignment="Center" VerticalAlignment="Center" Text="Not connected"></TextBlock>
-            </StackPanel>
-            <Button Opacity="1" x:Name="JoinCreateButton" Width="250" HorizontalAlignment="Right" Click="JoinCreateButton_Click">
+                <TextBlock Margin="10 0 10 10" x:Name="UserName" FontSize="20" FontFamily="{StaticResource BeaufortforLOL}" FontWeight="Bold" Foreground="{StaticResource Gold4}" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Not connected"/>
+                <Button Opacity="1" x:Name="JoinCreateButton" Width="250" HorizontalAlignment="Right" Click="JoinCreateButton_Click">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="JoinCreateButtonText" VerticalAlignment="Center" FontSize="25" Margin="10 0 0 0" TextAlignment="Center" Text="Join" />
                         <TextBlock VerticalAlignment="Center" FontSize="25" Margin="0 0 10 0" TextAlignment="Center" Text=" Tournament" />
                     </StackPanel>
                 </Button.Content>
-            </Button>
-        </Grid>
-        <Canvas Grid.Row="1" Background="Black">
+                </Button>
+            </Grid>
 
-        </Canvas>
-    </Grid>
+            <Frame Background="{StaticResource Grey6}" Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="pages\NoLCU.xaml"/>
+
+            <Canvas Grid.Row="1" Background="Transparent">
+
+            </Canvas>
+        </Grid>
+    </Canvas>
 </Window>
