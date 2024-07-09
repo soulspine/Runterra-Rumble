@@ -56,6 +56,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
         public bool isInChampSelect { get; private set; } = false;
         public bool isInGame { get; private set; } = false;
 
+        public string currentGameflowPhase { get; private set; }
         public Summoner localSummoner { get; private set; }
         public string localSummonerRegion { get; private set; }
 
@@ -172,7 +173,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
 
 
             localSummoner = getLocalSummonerFromLCU();
-            localSummonerRegion = getSummonerRegionFromLCU(localSummoner).Result;
+            localSummonerRegion = getSummonerRegionFromLCU().Result;
 
             OnConnected?.Invoke();
             isConnected = true;
@@ -197,6 +198,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
 
             localSummoner = null;
             localSummonerRegion = null;
+            currentGameflowPhase = null;
 
             lcuToken = null;
             lcuPort = null;
@@ -263,6 +265,8 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
 
         private void gameflowEventProc(string phase)
         {
+            currentGameflowPhase = phase;
+
             switch (phase)
             {
                 case "None":
@@ -587,7 +591,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
             }
         }
 
-        private async Task<string> getSummonerRegionFromLCU(Summoner summoner)
+        private async Task<string> getSummonerRegionFromLCU()
         {
             HttpResponseMessage response = await request(requestMethod.GET, $"/riotclient/region-locale", ignoreReadyCheck: true);
 

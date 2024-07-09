@@ -4632,5 +4632,8 @@
     <Resource Include="img\profileicon\999.png" />
     <Resource Include="img\profileicon\placeholder.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="sfx\easteregg.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

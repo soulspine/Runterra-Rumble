@@ -10,27 +10,47 @@
 
         <!--https://brand.riotgames.com/en-us/league-of-legends/color-->
         <Brush x:Key="Blue1">#CDFAFA</Brush>
+        <Color x:Key="Blue1Color">#CDFAFA</Color>
         <Brush x:Key="Blue2">#0AC8B9</Brush>
+        <Color x:Key="Blue2Color">#0AC8B9</Color>
         <Brush x:Key="Blue3">#0397AB</Brush>
+        <Color x:Key="Blue3Color">#0397AB</Color>
         <Brush x:Key="Blue4">#005A82</Brush>
+        <Color x:Key="Blue4Color">#005A82</Color>
         <Brush x:Key="Blue5">#0A323C</Brush>
+        <Color x:Key="Blue5Color">#0A323C</Color>
         <Brush x:Key="Blue6">#091428</Brush>
+        <Color x:Key="Blue6Color">#091428</Color>
         <Brush x:Key="Blue7">#0A1428</Brush>
+        <Color x:Key="Blue7Color">#0A1428</Color>
 
         <Brush x:Key="Gold1">#F0E6D2</Brush>
+        <Color x:Key="Gold1Color">#F0E6D2</Color>
         <Brush x:Key="Gold2">#C8AA6E</Brush>
+        <Color x:Key="Gold2Color">#C8AA6E</Color>
         <Brush x:Key="Gold3">#C8AA6E</Brush>
+        <Color x:Key="Gold3Color">#C8AA6E</Color>
         <Brush x:Key="Gold4">#C89B3C</Brush>
+        <Color x:Key="Gold4Color">#C89B3C</Color>
         <Brush x:Key="Gold5">#785A28</Brush>
+        <Color x:Key="Gold5Color">#785A28</Color>
         <Brush x:Key="Gold6">#463714</Brush>
+        <Color x:Key="Gold6Color">#463714</Color>
         <Brush x:Key="Gold7">#32281E</Brush>
+        <Color x:Key="Gold7Color">#32281E</Color>
 
         <Brush x:Key="Grey1">#A09B8C</Brush>
+        <Color x:Key="Grey1Color">#A09B8C</Color>
         <Brush x:Key="Grey2">#5B5A56</Brush>
+        <Color x:Key="Grey2Color">#5B5A56</Color>
         <Brush x:Key="Grey3">#3C3C41</Brush>
+        <Color x:Key="Grey3Color">#3C3C41</Color>
         <Brush x:Key="Grey4">#1E2328</Brush>
+        <Color x:Key="Grey4Color">#1E2328</Color>
         <Brush x:Key="Grey5">#1E282D</Brush>
+        <Color x:Key="Grey5Color">#1E282D</Color>
         <Brush x:Key="Grey6">#010A13</Brush>
-        
+        <Color x:Key="Grey6Color">#010A13</Color>
+
     </Application.Resources>
 </Application>
