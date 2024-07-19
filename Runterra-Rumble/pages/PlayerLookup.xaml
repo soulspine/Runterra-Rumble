@@ -1,0 +1,151 @@
+﻿<Page x:Class="Runterra_Rumble.pages.PlayerLookup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Runterra_Rumble.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="590" d:DesignWidth="1280"
+      Title="PlayerLookup"
+      RenderOptions.BitmapScalingMode="Fant">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="LeftGrid" Opacity="0" Grid.Column="0">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontFamily" Value="{StaticResource BeaufortforLOL}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Foreground" Value="{StaticResource Gold1}"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Row="0" Margin="25" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name ="IconContainer">
+                <Image  x:Name="UserIcon" Source="pack://application:,,,/img/profileicon/29.png"/>
+                <WrapPanel.OpacityMask>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Border Height="{Binding ElementName=IconContainer, Path=ActualHeight}" Width="{Binding ElementName=IconContainer, Path=ActualHeight}" Background="Black" BorderThickness="2" CornerRadius="50"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </WrapPanel.OpacityMask>
+            </WrapPanel>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox HorizontalAlignment="Left" Margin="25 0 10 0">
+                    <Label Content="Solo/Duo"/>
+                </Viewbox>
+
+                <Viewbox Grid.Column="1" HorizontalAlignment="Right" Margin="10 0 25 0">
+                    <Label x:Name="ProfileRankedSoloWins" Content="Loading winrate..."/>
+                </Viewbox>
+
+                <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                    <Image x:Name="ProfileRankedSoloIcon" Source="pack://application:,,,/img/tier/unranked.png"/>
+                    <Viewbox Margin="25">
+                        <Label x:Name="ProfileRankedSoloText" Content="Unranked"/>
+                    </Viewbox>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox HorizontalAlignment="Left" Margin="25 0 10 0">
+                    <Label Content="Flex"/>
+                </Viewbox>
+
+                <Viewbox Grid.Column="1" HorizontalAlignment="Right" Margin="10 0 25 0">
+                    <Label x:Name="ProfileRankedFlexWins" Content="Loading winrate..."/>
+                </Viewbox>
+
+                <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                    <Image x:Name="ProfileRankedFlexIcon" Source="pack://application:,,,/img/tier/unranked.png"/>
+                    <Viewbox Margin="25">
+                        <Label x:Name="ProfileRankedFlexText" Content="Unranked"/>
+                    </Viewbox>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+
+
+        <Canvas Grid.Column="1" SizeChanged="InputCanvas_SizeChanged" x:Name="InputCanvas">
+            <Canvas.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontFamily" Value="{StaticResource Spiegel}"/>
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Foreground" Value="{StaticResource Blue1}"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="CaretBrush" Value="{StaticResource Blue1}"/>
+                </Style>
+            </Canvas.Resources>
+            <Border Visibility="Hidden" Background="{StaticResource Blue7}" x:Name="InputBorder" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="25" Height="auto" BorderThickness="3" BorderBrush="{StaticResource Gold5}">
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Opacity="0.5" Width="370" Margin="15 0 0 0" GotFocus="Input_GotFocus" TextChanged="Input_TextChanged" x:Name="InputName"/>
+                    <TextBox Focusable="False" Text="#"/>
+                    <TextBox Opacity="0.5" Width="120" Margin="0 0 15 0" GotFocus="Input_GotFocus" TextChanged="Input_TextChanged" x:Name="InputTagline"/>
+                </StackPanel>
+            </Border>
+            <Button Visibility="Hidden" Click="SearchButton_Click"  Cursor="Hand" x:Name="SearchButton" Height="30">
+                <Button.Content>
+                    <TextBlock Text="Search" Margin="1"/>
+                </Button.Content>
+                <Button.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="FontFamily" Value="{StaticResource Spiegel}"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Foreground" Value="{StaticResource Blue1}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource Gold4}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border BorderThickness="3" Width="100" BorderBrush="{Binding ElementName=InputBorder, Path=BorderBrush}" Background="{Binding ElementName=InputBorder, Path=Background}" CornerRadius="15">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Label Opacity="0" Focusable="False" Visibility="Hidden" Foreground="Red" FontWeight="Bold" FontFamily="{StaticResource Spiegel}" x:Name="SummonerErrorMessageLabel">Couldn't find this summoner.</Label>
+        </Canvas>
+    </Grid>
+</Page>

@@ -9,6 +9,7 @@ using System.Windows;
 using soulspine.LCU;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Runterra_Rumble
 {

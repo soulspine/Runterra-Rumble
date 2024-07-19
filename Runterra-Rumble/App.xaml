@@ -5,8 +5,8 @@
              Startup="Application_Startup"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-        <FontFamily x:Key="BeaufortforLOL">pack://application:,,,/Fonts/#Beaufort for LOL</FontFamily>
-        <FontFamily x:Key="Spiegel">pack://application:,,,/Fonts/#Spiegel</FontFamily>
+        <FontFamily x:Key="BeaufortforLOL">pack://application:,,,/fonts/#Beaufort for LOL</FontFamily>
+        <FontFamily x:Key="Spiegel">pack://application:,,,/fonts/#Spiegel</FontFamily>
 
         <!--https://brand.riotgames.com/en-us/league-of-legends/color-->
         <Brush x:Key="Blue1">#CDFAFA</Brush>

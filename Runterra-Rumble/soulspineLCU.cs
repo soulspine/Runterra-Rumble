@@ -98,7 +98,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
 
         private void handleConnection()
         {
-            RESTART:
+        RESTART:
 
             while (!(lcuProcessRunning = isProcessRunning("LeagueClientUx")))
             {
@@ -214,7 +214,7 @@ namespace soulspine.LCU //https://github.com/soulspine/LCU
             return "OnJsonApiEvent" + endpoint.Replace("/", "_");
         }
 
-            
+
         private void handleWebsocketMessage(object sender, MessageEventArgs e)
         {
             var arr = JsonConvert.DeserializeObject<JArray>(e.Data);

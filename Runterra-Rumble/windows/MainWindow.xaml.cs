@@ -1,5 +1,6 @@
 ﻿using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
+using Runterra_Rumble.pages;
 using soulspine.LCU;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,8 +30,9 @@ namespace Runterra_Rumble
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly LeagueClient lcu = App.GetLCU(); // this is so retarded that i have to do this AAAHAHAHHHAHAHAH
+        public readonly LeagueClient lcu = App.GetLCU(); // this is so retarded that i have to do this AAAHAHAHHHAHAHAH
         private MODE mode = MODE.Player;
+        private object currentPage = null;
 
         //Mode button
         private bool ModeButton_IsEnabled = true;
@@ -89,7 +92,7 @@ namespace Runterra_Rumble
             lcu.Subscribe("lol-gameflow/v1/gameflow-phase", OnGameflowPhaseChanged);
 
             ee_MusicPlayer.Open(new Uri("C:\\code\\Runterra-Rumble\\Runterra-Rumble\\sfx\\easteregg.mp3"));
-            ee_MusicPlayer.Volume = 0.5;
+            ee_MusicPlayer.Volume = 0.2;
 
             InitializeComponent();
 
@@ -100,15 +103,15 @@ namespace Runterra_Rumble
         private enum MODE { Organizer, Player };
 
 
-        private void UserUpdate(int? iconId = null, string displayName = null )
+        private void UserUpdate(int? iconId = null, string displayName = null)
         {
             Dispatcher.Invoke(() =>
             {
                 if (displayName != null)
                 {
-                    UserName.BeginAnimation(TextBlock.TextProperty, DeleteAndTypingAnimation(UserName.Text, displayName, UserArea_AnimationDuration));
+                    UserName.BeginAnimation(TextBlock.TextProperty, CustomAnimation.DeleteAndTyping(UserName.Text, displayName, UserArea_AnimationDuration));
                 }
-                if (iconId != null) UserIcon.Source = new BitmapImage(new Uri($"img\\profileicon\\{iconId.ToString()}.png", UriKind.Relative));
+                if (iconId != null) UserIcon.Source = new BitmapImage(new Uri($"pack://application:,,,/img/profileicon/{iconId.ToString()}.png"));
             });
         }
 
@@ -121,6 +124,9 @@ namespace Runterra_Rumble
         private void OnLcuConnected()
         {
             UserUpdate(lcu.localSummoner.profileIconId, $"{lcu.localSummoner.gameName}");
+            TitleBar_GlowEnable(0.5);
+
+            HideNoLcuCard(0.5);
 
             if (lcu.currentGameflowPhase != "None")
             {
@@ -137,6 +143,9 @@ namespace Runterra_Rumble
         private void OnLcuDisconnected()
         {
             UserUpdate(29, "Not connected");
+            TitleBar_GlowDisable(0.5);
+
+            ShowNoLcuCard(0.5);
 
             ModeButton_Disable();
             JoinCreateButton_Disable();
@@ -149,8 +158,8 @@ namespace Runterra_Rumble
                 ModeButton_Enable();
                 JoinCreateButton_Enable();
             }
-            else 
-            { 
+            else
+            {
                 ModeButton_Disable();
                 JoinCreateButton_Disable();
             }
@@ -200,7 +209,7 @@ namespace Runterra_Rumble
             {
                 var r = new Random();
                 from = ModeButtonIconRotateTransform.Angle;
-                to = from + r.NextDouble()*360*3;
+                to = from + r.NextDouble() * 360 * 3;
             }
             else
             {
@@ -228,10 +237,10 @@ namespace Runterra_Rumble
                 if (letter == ' ') break;
                 lettersToDelete++;
             }
-            
+
             string desiredPrefix = mode == MODE.Player ? "Join" : "Host";
 
-            JoinCreateButtonText.BeginAnimation(TextBlock.TextProperty, DeleteAndTypingAnimation(JoinCreateButtonText.Text, desiredPrefix, JoinCreateButton_AnimationDuration));
+            JoinCreateButtonText.BeginAnimation(TextBlock.TextProperty, CustomAnimation.DeleteAndTyping(JoinCreateButtonText.Text, desiredPrefix, JoinCreateButton_AnimationDuration));
 
             button.IsEnabled = true;
         }
@@ -293,35 +302,71 @@ namespace Runterra_Rumble
 
         }
 
-        private StringAnimationUsingKeyFrames DeleteAndTypingAnimation(string from, string to, double duration)
+        private void TitleBar_GlowEnable(double duration)
         {
-            var keyFrames = new StringKeyFrameCollection();
-
-            int deleteActions = from.Length + 1;
-            int addActions = to.Length;
-            int totalActions = deleteActions + addActions;
-
-            for (int i = 0; i < deleteActions; i++)
+            Dispatcher.Invoke(() =>
             {
-                keyFrames.Add(new DiscreteStringKeyFrame(from.Substring(0, deleteActions-i-1), KeyTime.FromTimeSpan(TimeSpan.FromSeconds((duration / totalActions) * i))));
-            }
-
-            for (int i = 1; i < addActions + 1; i++)
-            {
-                keyFrames.Add(new DiscreteStringKeyFrame(to.Substring(0, i), KeyTime.FromTimeSpan(TimeSpan.FromSeconds((duration / totalActions) * (deleteActions + i)))));
-            }
-
-            return new StringAnimationUsingKeyFrames()
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(duration)),
-                KeyFrames = keyFrames,
-            };
+                TitleBarBackgroundGlow.BeginAnimation(OpacityProperty, new DoubleAnimation()
+                {
+                    To = 1,
+                    Duration = new Duration(TimeSpan.FromSeconds(duration)),
+                });
+            });
         }
 
-        private void ChangeMainFrameSource(string uri)
+        private void TitleBar_GlowDisable(double duration)
         {
-            if (!uri.EndsWith(".xaml")) uri += ".xaml";
-            Dispatcher.Invoke(() => MainFrame.Source = new Uri(uri, UriKind.Relative));
+            Dispatcher.Invoke(() =>
+            {
+                TitleBarBackgroundGlow.BeginAnimation(OpacityProperty, new DoubleAnimation()
+                {
+                    To = 0,
+                    Duration = new Duration(TimeSpan.FromSeconds(duration)),
+                });
+            });
+        }
+
+        private void ShowNoLcuCard(double duration)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                NoLcuFrame.BeginAnimation(OpacityProperty, new DoubleAnimation(NoLcuFrame.Opacity, 1, new Duration(TimeSpan.FromSeconds(duration))));
+                MainFrame.BeginAnimation(OpacityProperty, new DoubleAnimation(MainFrame.Opacity, 0, new Duration(TimeSpan.FromSeconds(duration))));
+                Panel.SetZIndex(NoLcuFrame, 1);
+            });
+        }
+
+        private void HideNoLcuCard(double duration)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                NoLcuFrame.BeginAnimation(OpacityProperty, new DoubleAnimation(NoLcuFrame.Opacity, 0, new Duration(TimeSpan.FromSeconds(duration))));
+                MainFrame.BeginAnimation(OpacityProperty, new DoubleAnimation(MainFrame.Opacity, 1, new Duration(TimeSpan.FromSeconds(duration))));
+                Panel.SetZIndex(NoLcuFrame, -1);
+            });
+        }
+
+        private void ChangeMainFrameSource(MainFrameSource source)
+        {
+            object newElement;
+
+            switch (source)
+            {
+                case MainFrameSource.PlayerLookup:
+                    newElement = new PlayerLookup();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            Dispatcher.Invoke(() => MainFrame.Content = newElement);
+        }
+
+        private enum MainFrameSource { PlayerLookup };
+
+        private void TestPlayerLookup_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeMainFrameSource(MainFrameSource.PlayerLookup);
         }
     }
 }

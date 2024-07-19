@@ -12,10 +12,11 @@
     <Canvas x:Name="GodCanvas">
         <Grid Height="{Binding ElementName=GodCanvas, Path=ActualHeight}" Width="{Binding ElementName=GodCanvas, Path=ActualWidth}" x:Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="9*"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="2" x:Name="TitleBar" Background="{StaticResource Blue7}">
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" x:Name="TitleBar">
                 <Grid.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Foreground" Value="{StaticResource Blue1}"/>
@@ -37,6 +38,21 @@
                         </Setter>
                     </Style>
                 </Grid.Resources>
+
+                <Grid.Background>
+                    <SolidColorBrush x:Name="TitleBarBackgroundBrush" Color="{StaticResource Blue6Color}"/>
+                </Grid.Background>
+
+                <Canvas x:Name="TitleBarBackgroundGlow" Opacity="0">
+                    <Canvas.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="{Binding ElementName=TitleBarBackgroundBrush, Path=Color}" Offset="0"/>
+                            <GradientStop Color="{StaticResource Blue5Color}" Offset="0.5"/>
+                            <GradientStop Color="{Binding ElementName=TitleBarBackgroundBrush, Path=Color}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Canvas.Background>
+                </Canvas>
+ 
                 <Button Opacity="1" x:Name="ModeButton" Width="250" HorizontalAlignment="Left"  Click="ModeButton_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -51,7 +67,7 @@
                     </Button.Content>
                 </Button>
                 <WrapPanel Margin="10 10 10 35" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name ="IconContainer">
-                    <Image x:Name="UserIcon" Source="img\profileicon\29.png"/>
+                    <Image x:Name="UserIcon" Source="pack://application:,,,/img/profileicon/29.png"/>
                     <WrapPanel.OpacityMask>
                         <VisualBrush>
                             <VisualBrush.Visual>
@@ -60,7 +76,7 @@
                         </VisualBrush>
                     </WrapPanel.OpacityMask>
                 </WrapPanel>
-                <TextBlock Margin="10 0 10 10" x:Name="UserName" FontSize="20" FontFamily="{StaticResource BeaufortforLOL}" FontWeight="Bold" Foreground="{StaticResource Gold4}" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Not connected"/>
+                <TextBlock Margin="10 0 10 8" x:Name="UserName" FontSize="20" FontFamily="{StaticResource BeaufortforLOL}" FontWeight="Bold" Foreground="{StaticResource Gold4}" TextAlignment="Left" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Not connected"/>
                 <Button Opacity="1" x:Name="JoinCreateButton" Width="250" HorizontalAlignment="Right" Click="JoinCreateButton_Click">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
@@ -71,11 +87,18 @@
                 </Button>
             </Grid>
 
-            <Frame Background="{StaticResource Grey6}" Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="pages\NoLCU.xaml"/>
+            <Grid Grid.Row="1" Background="{StaticResource Gold5}">
+                <Grid.ColumnDefinitions>
+                    
+                </Grid.ColumnDefinitions>
+                
+                <Button x:Name="TestPlayerLookup" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Player lookup" Click="TestPlayerLookup_Click"/>
+                
+            </Grid>
 
-            <Canvas Grid.Row="1" Background="Transparent">
-
-            </Canvas>
+            <Canvas x:Name="MainFrameBackground" Panel.ZIndex="-2" Background="{StaticResource Grey6}" Grid.Row="2"/>
+            <Frame Grid.Row="2" x:Name="MainFrame" NavigationUIVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+            <Frame Panel.ZIndex="1" Grid.Row="2" x:Name="NoLcuFrame" NavigationUIVisibility="Hidden" Source="pack://application:,,,/pages/NoLCU.xaml"/>
         </Grid>
     </Canvas>
 </Window>
