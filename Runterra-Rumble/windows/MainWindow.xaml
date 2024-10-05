@@ -67,7 +67,7 @@
                     </Button.Content>
                 </Button>
                 <WrapPanel Margin="10 10 10 35" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name ="IconContainer">
-                    <Image x:Name="UserIcon" Source="pack://application:,,,/img/profileicon/29.png"/>
+                    <Image x:Name="UserIcon" Source="https://ddragon.leagueoflegends.com/cdn/14.19.1/img/profileicon/29.png"/>
                     <WrapPanel.OpacityMask>
                         <VisualBrush>
                             <VisualBrush.Visual>

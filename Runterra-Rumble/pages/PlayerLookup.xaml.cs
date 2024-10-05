@@ -85,20 +85,22 @@ namespace Runterra_Rumble.pages
         private void SearchButton_Disable()
         {
             if (!SearchButton_IsEnabled) return;
+            Dispatcher.Invoke(() => {
+                SearchButton.Cursor = Cursors.No;
+                SearchButton_IsEnabled = false;
 
-            SearchButton.Cursor = Cursors.No;
-            SearchButton_IsEnabled = false;
+                SearchButton.BeginAnimation(OpacityProperty, new DoubleAnimation()
+                {
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(Input_AnimationDuration)
+                });
 
-            SearchButton.BeginAnimation(OpacityProperty, new DoubleAnimation()
-            {
-                To = 0,
-                Duration = TimeSpan.FromSeconds(Input_AnimationDuration)
+                Task.Delay((int)(1000 * Input_AnimationDuration)).ContinueWith((_) => Dispatcher.Invoke(() =>
+                {
+                    if (!SearchButton_IsEnabled) SearchButton.Visibility = Visibility.Hidden;
+                }));
             });
-
-            Task.Delay((int)(1000*Input_AnimationDuration)).ContinueWith((_) => Dispatcher.Invoke(() =>
-            {
-                if (!SearchButton_IsEnabled) SearchButton.Visibility = Visibility.Hidden;
-            }));
+            
         }
 
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
@@ -234,6 +236,7 @@ namespace Runterra_Rumble.pages
             {
                 var summoner = lcu.GetSummoner(name, tagline);
 
+
                 if (summoner == null)
                 {
                     if (!Input_IsInDefaultPosition) Input_MoveSearchBox(); //search box is up, move it down
@@ -253,6 +256,7 @@ namespace Runterra_Rumble.pages
                         Thread.Sleep(500);
                     }
                     LoadProfile(summoner);
+                    SearchButton_Disable();
                 }
                 
             });
@@ -262,6 +266,10 @@ namespace Runterra_Rumble.pages
 
         private void LoadProfile(Summoner summoner)
         {
+            const int DEFAULT_MATCH_HISTORY_SIZE = 20;
+
+            var matchHistory = this.GetMatchHistory(summoner.puuid, 0, DEFAULT_MATCH_HISTORY_SIZE-1);
+
             var rankedResponse = lcu.request(requestMethod.GET, $"/lol-ranked/v1/ranked-stats/{summoner.puuid}").Result;
 
             if (rankedResponse == null || rankedResponse.StatusCode != System.Net.HttpStatusCode.OK)
@@ -288,7 +296,7 @@ namespace Runterra_Rumble.pages
                     Duration = TimeSpan.FromSeconds(0.5)
                 });
 
-                UserIcon.Source = new BitmapImage(new Uri($"pack://application:,,,/img/profileicon/{summoner.profileIconId.ToString()}.png"));
+                UserIcon.Source = new BitmapImage(new Uri(App.GetIconPath(summoner.profileIconId)));
 
                 ProfileRankedSoloIcon.Source = new BitmapImage(new Uri($"pack://application:,,,/img/tier/{soloTier.ToLower()}.png"));
                 ProfileRankedFlexIcon.Source = new BitmapImage(new Uri($"pack://application:,,,/img/tier/{flexTier.ToLower()}.png"));

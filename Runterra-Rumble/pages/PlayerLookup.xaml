@@ -95,6 +95,9 @@
             </Grid>
         </Grid>
 
+        <StackPanel>
+            
+        </StackPanel>
 
 
         <Canvas Grid.Column="1" SizeChanged="InputCanvas_SizeChanged" x:Name="InputCanvas">

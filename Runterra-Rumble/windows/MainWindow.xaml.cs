@@ -103,7 +103,7 @@ namespace Runterra_Rumble
         private enum MODE { Organizer, Player };
 
 
-        private void UserUpdate(int? iconId = null, string displayName = null)
+        public void UserUpdate(int? iconId = null, string displayName = null)
         {
             Dispatcher.Invoke(() =>
             {
@@ -111,7 +111,7 @@ namespace Runterra_Rumble
                 {
                     UserName.BeginAnimation(TextBlock.TextProperty, CustomAnimation.DeleteAndTyping(UserName.Text, displayName, UserArea_AnimationDuration));
                 }
-                if (iconId != null) UserIcon.Source = new BitmapImage(new Uri($"pack://application:,,,/img/profileicon/{iconId.ToString()}.png"));
+                if (iconId != null) UserIcon.Source = new BitmapImage(new Uri(App.GetIconPath((int)iconId)));
             });
         }
 
